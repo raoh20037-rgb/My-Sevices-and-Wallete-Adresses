@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamza Rao | Official Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-glow: #3b82f6;
+            --accent: #60a5fa;
+            --card-bg: #0f172a;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background: #020617;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .portal-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 45px 30px;
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            animation: cardOpen 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes cardOpen {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .profile-area { margin-bottom: 30px; }
+        .img-box {
+            position: relative;
+            width: 125px; height: 125px;
+            margin: 0 auto 15px;
+        }
+        .profile-img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--primary-glow);
+            padding: 4px;
+            object-fit: cover;
+        }
+
+        .verified-badge {
+            position: absolute; bottom: 8px; right: 8px;
+            color: #1d9bf0; background: #fff;
+            border-radius: 50%; font-size: 22px;
+            display: flex; align-items: center; justify-content: center;
+            animation: tickSmoothGlow 2.5s ease-in-out infinite;
+        }
+        @keyframes tickSmoothGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(29, 155, 240, 0.3); transform: scale(1); }
+            50% { box-shadow: 0 0 20px rgba(29, 155, 240, 0.7); transform: scale(1.1); }
+        }
+
+        .user-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #fff, #60a5fa, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: blushEffect 4s linear infinite;
+        }
+
+        @keyframes blushEffect {
+            to { background-position: 200% center; }
+        }
+
+        .sub-heading { color: var(--text-dim); font-size: 16px; font-weight: 500; }
+
+        .nav-link {
+            width: 100%; padding: 18px; border-radius: 22px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: white; font-weight: 700; font-size: 16px;
+            display: flex; align-items: center; justify-content: center;
+            gap: 12px; margin-bottom: 14px; cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-link:hover { 
+            background: rgba(59, 130, 246, 0.15); 
+            border-color: var(--primary-glow); 
+            transform: translateY(-3px);
+        }
+        .btn-main { background: linear-gradient(135deg, #3b82f6, #1d4ed8); border: none; }
+
+        .scroll-box { max-height: 450px; overflow-y: auto; padding: 10px; margin-bottom: 20px; }
+        .scroll-box::-webkit-scrollbar { width: 4px; }
+        .scroll-box::-webkit-scrollbar-thumb { background: var(--primary-glow); border-radius: 10px; }
+
+        .pay-section-title {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: left;
+            margin: 25px 0 12px 10px;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-glow);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .centered-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 20px; border-radius: 25px;
+            margin-bottom: 12px; text-align: center;
+        }
+        
+        .pay-label { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        .pay-val { font-family: 'Courier New', monospace; font-size: 13px; display: block; margin: 10px 0; color: #fff; word-break: break-all; }
+        .copy-btn {
+            background: var(--primary-glow); border: none; color: white;
+            padding: 10px 20px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #toast {
+            position: fixed; top: -150px; left: 50%; transform: translateX(-50%);
+            background: var(--success); color: white; 
+            padding: 25px 40px; border-radius: 30px; font-weight: 800; z-index: 9999; 
+            transition: 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center; width: 90%; max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        #toast.active { top: 40px; }
+    </style>
+</head>
+<body>
+
+<div id="toast">
+    <span style="font-size: 20px; display: block; margin-bottom: 5px;">✅ Address Copied!</span>
+    <span style="font-size: 14px; font-weight: 500; opacity: 0.9;">Please send screenshot after payment.</span>
+</div>
+
+<div class="portal-card">
+    
+    <div class="page active" id="home">
+        <div class="profile-area">
+            <div class="img-box">
+                <img src="https://i.postimg.cc/jqw2q317/profile_jpg.jpg" class="profile-img">
+                <div class="verified-badge"><i class="fas fa-check-circle"></i></div>
+            </div>
+            <h1 class="user-name">Hamza Rao</h1>
+            <p class="sub-heading">Official Web3 & Social Growth Expert</p>
+        </div>
+        <button class="nav-link btn-main" onclick="show('services')"><i class="fas fa-sparkles"></i> Our Services</button>
+        <button class="nav-link" onclick="show('payment')"><i class="fas fa-wallet"></i> Payment Center</button>
+        <a href="https://wa.me/+923198289845" target="_blank" class="nav-link" style="color: #25d366;"><i class="fab fa-whatsapp"></i> WhatsApp Support</a>
+        <a href="https://t.me/Hamzarao937" target="_blank" class="nav-link" style="color: #0088cc;"><i class="fab fa-telegram-plane"></i> Telegram Chat</a>
+    </div>
+
+    <div class="page" id="services">
+        <h3 style="margin-bottom: 20px; font-weight: 800; color: var(--accent); font-size: 22px;">Our Services</h3>
+        <div class="scroll-box">
+            <div class="centered-card"><i class="fas fa-rocket" style="color: #ff4757; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Zealy Invites 3K</span></div>
+            <div class="centered-card"><i class="fas fa-user-shield" style="color: #10b981; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Zealy Human Proof 200</span></div>
+            <div class="centered-card"><i class="fab fa-discord" style="color: #7289da; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Discord Members 1K</span></div>
+            <div class="centered-card"><i class="fas fa-layer-group" style="color: #f59e0b; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Taskon Invites 3K</span></div>
+            <div class="centered-card"><i class="fas fa-certificate" style="color: #3b82f6; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Galxe Invites 3K</span></div>
+            <div class="centered-card"><i class="fab fa-twitter" style="color: #1d9bf0; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Twitter Real Followers</span></div>
+            <div class="centered-card"><i class="fas fa-heart" style="color: #e11d48; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Twitter Post Likes</span></div>
+            <div class="centered-card"><i class="fas fa-retweet" style="color: #10b981; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Twitter Retweets (RT)</span></div>
+            <div class="centered-card"><i class="fas fa-comment-dots" style="color: #60a5fa; font-size: 26px;"></i><span class="item-title" style="display:block; margin-top:10px; font-weight:700;">Twitter Custom Comments</span></div>
+        </div>
+        <button class="nav-link" onclick="show('home')">Main Menu</button>
+    </div>
+
+    <div class="page" id="payment">
+        <h3 style="margin-bottom: 10px; font-weight: 800; color: var(--accent); font-size: 22px;">Payment Center</h3>
+        <div class="scroll-box">
+            <div class="pay-section-title">EXCHANGES UID</div>
+            <div class="centered-card">
+                <span class="pay-label">Binance UID</span>
+                <span class="pay-val" id="buid">945297607</span>
+                <button class="copy-btn" onclick="copy('buid')">Copy UID</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">Bybit UID</span>
+                <span class="pay-val" id="byuid">489228811</span>
+                <button class="copy-btn" onclick="copy('byuid')">Copy UID</button>
+            </div>
+
+            <div class="pay-section-title">USDT ADDRESSES</div>
+            <div class="centered-card">
+                <span class="pay-label">USDT (BEP20)</span>
+                <span class="pay-val" id="ubep">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('ubep')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDT (ETH / ERC20)</span>
+                <span class="pay-val" id="ueth">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('ueth')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDT (SOLANA)</span>
+                <span class="pay-val" id="usol">5PqA3KnSWLhQW4PcmFoRV1B34S5h79Z5QXs9V24vmA83</span>
+                <button class="copy-btn" onclick="copy('usol')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDT (APTOS)</span>
+                <span class="pay-val" id="uapt">0xca0084ca9cd275baa1828f9676265e076eea618ad9a342d0490b20a163b78dca</span>
+                <button class="copy-btn" onclick="copy('uapt')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDT (POLYGON)</span>
+                <span class="pay-val" id="upol">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('upol')">Copy Address</button>
+            </div>
+
+            <div class="pay-section-title">USDC ADDRESSES</div>
+            <div class="centered-card">
+                <span class="pay-label">USDC (BNB BEP20)</span>
+                <span class="pay-val" id="ucbnb">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('ucbnb')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDC (BASE)</span>
+                <span class="pay-val" id="ucbase">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('ucbase')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDC (SOLANA)</span>
+                <span class="pay-val" id="ucsol">5PqA3KnSWLhQW4PcmFoRV1B34S5h79Z5QXs9V24vmA83</span>
+                <button class="copy-btn" onclick="copy('ucsol')">Copy Address</button>
+            </div>
+            <div class="centered-card">
+                <span class="pay-label">USDC (POLYGON)</span>
+                <span class="pay-val" id="ucpol">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('ucpol')">Copy Address</button>
+            </div>
+
+            <div class="pay-section-title">BNB ADDRESS</div>
+            <div class="centered-card">
+                <span class="pay-label">BNB (BEP20)</span>
+                <span class="pay-val" id="bnbnative">0xa04e13212d8069744e30f4d6188f46773e09e596</span>
+                <button class="copy-btn" onclick="copy('bnbnative')">Copy Address</button>
+            </div>
+             <div class="pay-section-title">SOL ADDRESS</div>
+            <div class="centered-card">
+                <span class="pay-label">SOL (BEP20)</span>
+                <span class="pay-val" id="solbep">5PqA3KnSWLhQW4PcmFoRV1B34S5h79Z5QXs9V24vmA83</span>
+                <button class="copy-btn" onclick="copy('solbep')">Copy Address</button>
+            </div>
+
+        </div>
+        <button class="nav-link" onclick="show('home')">Main Menu</button>
+    </div>
+
+</div>
+
+<script>
+    function show(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    // New Copy Function that works on iPhone/Safari
+    function copy(id) {
+        const text = document.getElementById(id).innerText;
+        
+        // Mobile/iPhone friendly copy method
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        textArea.setSelectionRange(0, 99999); // For mobile devices
+
+        try {
+            document.execCommand('copy');
+            const t = document.getElementById('toast');
+            t.classList.add('active');
+            setTimeout(() => t.classList.remove('active'), 4000);
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+        }
+
+        document.body.removeChild(textArea);
+    }
+</script>
+
+</body>
+</html>
